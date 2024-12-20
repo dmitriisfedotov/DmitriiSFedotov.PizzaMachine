@@ -1,6 +1,7 @@
 ﻿using DmitriiSFedotov.PizzaMachine.Enums;
 using DmitriiSFedotov.PizzaMachine.Exceptions;
 using DmitriiSFedotov.PizzaMachine.Helpers;
+using DmitriiSFedotov.PizzaMachine.Pizzas;
 using System;
 
 var pizzaStore = new PizzaStore();
