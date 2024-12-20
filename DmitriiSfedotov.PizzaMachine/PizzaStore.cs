@@ -7,14 +7,16 @@ internal class PizzaStore
 {
     public async Task OrderPizza(PizzaType pizzaType)
     {
-        IPizza pizza = pizzaType switch
+        ICreator creator = pizzaType switch
         {
-            PizzaType.Pepperoni => new PepperoniPizza(),
-            PizzaType.Hawaiian => new HawaiianPizza(),
-            PizzaType.Margarita => new MargaritaPizza(),
-            PizzaType.FourCheeses => new FourCheesesPizza(),
+            PizzaType.Pepperoni => new PepperoniCreator(),
+            PizzaType.Hawaiian => new HawaiianCreator(),
+            PizzaType.Margarita => new MargaritaCreator(),
+            PizzaType.FourCheeses => new FourCheesesCreator(),
             _ => throw new IncorrectChoiceException("Некорректный выбор! Попробуйте снова!")
         };
+
+        IPizza pizza = creator.Create();
 
         await pizza.CollectAsync();
         await pizza.CookAsync();
