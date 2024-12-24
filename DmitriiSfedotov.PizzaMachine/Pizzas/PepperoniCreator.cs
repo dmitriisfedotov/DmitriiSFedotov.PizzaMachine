@@ -1,6 +1,6 @@
 ﻿namespace DmitriiSFedotov.PizzaMachine.Pizzas;
 
-internal class PepperoniCreator : ICreator
+internal class PepperoniCreator : IPizzaCreator
 {
     public IPizza Create()
     {

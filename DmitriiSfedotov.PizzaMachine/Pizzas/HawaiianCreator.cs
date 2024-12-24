@@ -1,6 +1,6 @@
 ﻿namespace DmitriiSFedotov.PizzaMachine.Pizzas;
 
-internal class HawaiianCreator : ICreator
+internal class HawaiianCreator : IPizzaCreator
 {
     public IPizza Create()
     {

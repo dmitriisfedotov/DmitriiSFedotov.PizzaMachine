@@ -7,7 +7,7 @@ internal class PizzaStore
 {
     public async Task OrderPizza(PizzaType pizzaType)
     {
-        ICreator creator = pizzaType switch
+        IPizzaCreator creator = pizzaType switch
         {
             PizzaType.Pepperoni => new PepperoniCreator(),
             PizzaType.Hawaiian => new HawaiianCreator(),
