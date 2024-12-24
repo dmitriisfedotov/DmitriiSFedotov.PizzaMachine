@@ -1,22 +1,21 @@
-﻿using DmitriiSFedotov.PizzaMachine.Enums;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DmitriiSFedotov.PizzaMachine.Enums;
 using DmitriiSFedotov.PizzaMachine.Exceptions;
 using DmitriiSFedotov.PizzaMachine.Pizzas;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
+namespace DmitriiSFedotov.PizzaMachine;
 
 internal class PizzaStore
 {
-    private readonly Dictionary<PizzaType, IPizzaCreator> _creators = new Dictionary<PizzaType, IPizzaCreator>();
-    public PizzaStore()
+    private readonly Dictionary<PizzaType, IPizzaCreator> _creators = new ()
     {
-        _creators = new ()
-        {
-            [PizzaType.Pepperoni] = new PepperoniCreator(),
-            [PizzaType.Hawaiian] = new HawaiianCreator(),
-            [PizzaType.Margarita] = new MargaritaCreator(),
-            [PizzaType.FourCheeses] = new FourCheesesCreator()
-        };
-    }
+        [PizzaType.Pepperoni] = new PepperoniCreator(),
+        [PizzaType.Hawaiian] = new HawaiianCreator(),
+        [PizzaType.Margarita] = new MargaritaCreator(),
+        [PizzaType.FourCheeses] = new FourCheesesCreator()
+    };
+
     public async Task OrderPizza(PizzaType pizzaType)
     {
         if (!_creators.TryGetValue(pizzaType, out var creator))
