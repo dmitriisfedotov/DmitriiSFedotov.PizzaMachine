@@ -1,20 +1,29 @@
-﻿using DmitriiSFedotov.PizzaMachine.Enums;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DmitriiSFedotov.PizzaMachine.Enums;
 using DmitriiSFedotov.PizzaMachine.Exceptions;
 using DmitriiSFedotov.PizzaMachine.Pizzas;
-using System.Threading.Tasks;
+
+namespace DmitriiSFedotov.PizzaMachine;
 
 internal class PizzaStore
 {
+    private readonly Dictionary<PizzaType, IPizzaCreator> _creators = new ()
+    {
+        [PizzaType.Pepperoni] = new PepperoniCreator(),
+        [PizzaType.Hawaiian] = new HawaiianCreator(),
+        [PizzaType.Margarita] = new MargaritaCreator(),
+        [PizzaType.FourCheeses] = new FourCheesesCreator()
+    };
+
     public async Task OrderPizza(PizzaType pizzaType)
     {
-        IPizza pizza = pizzaType switch
+        if (!_creators.TryGetValue(pizzaType, out var creator))
         {
-            PizzaType.Pepperoni => new PepperoniPizza(),
-            PizzaType.Hawaiian => new HawaiianPizza(),
-            PizzaType.Margarita => new MargaritaPizza(),
-            PizzaType.FourCheeses => new FourCheesesPizza(),
-            _ => throw new IncorrectChoiceException("Некорректный выбор! Попробуйте снова!")
-        };
+            throw new IncorrectChoiceException("Некорректный выбор! Попробуйте снова!");
+        }
+
+        IPizza pizza = creator.Create();
 
         await pizza.CollectAsync();
         await pizza.CookAsync();

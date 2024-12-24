@@ -2,6 +2,7 @@
 using DmitriiSFedotov.PizzaMachine.Exceptions;
 using DmitriiSFedotov.PizzaMachine.Helpers;
 using System;
+using DmitriiSFedotov.PizzaMachine;
 
 var pizzaStore = new PizzaStore();
 
